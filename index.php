@@ -2,7 +2,8 @@
 	header("Content-Type:application/json");
 	include("functions.php");
 	if(!empty($_GET['request_param1'])){
-		deliver_response(200, "Request Accepted", "the request was complete");
+		$function = example();
+		deliver_response(200, "Request Accepted", $function);
 	}else{
 		deliver_response(400, "Invalid Request", NULL);
 	}
