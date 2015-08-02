@@ -1,0 +1,5 @@
+    db.usuario.insert({nombreUsuario:"<nombre usuario>",preguntaRecuperacion:"<pregunta>",respuestaRecuperacion:"<respuesta>", password:"<password>",zonas:"<zonas>",batallasGanadas:"<batallasGanadas>",batallasPerdidas:"<batallasPerdidas>",escuela:"<escuela>",wifiPotencia:"<wifiPotencia>",velocidadMedia:"<velocidadMedia>",altitud:"<altitud>",puntaje:"<puntaje>"})
+    
+    db.zona.insert({nombreZona:"<nombre zona>",longitud:"<longitud>",latitud:"<latitud>", historialPropietarios:"<historialPropietarios>",estado:"<estado>"})
+    
+    db.escuela.insert({nombreEscuela:"<nombre escuela>",color:"<color>"})
