@@ -1,0 +1,51 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>KoH</title>
+  </head>
+
+  <body>
+
+
+
+<?php
+
+$username="root";
+$password="K1ngOfTheH1ll";
+$database="kohdb";
+$host="172.19.127.63";
+
+    $con = new Mongo("mongodb://{$username}:{$password}@{$host}"); // Connect to Mongo Server
+    $db = $con->selectDB($database); // Connect to Database
+    $collection = $db->usuario;
+
+
+
+$id_="";
+$nombreUsuario="Julio";
+$preguntaRecuperacion="Color Favorito?";
+$respuestaRecuperacion="Azulito papaya";
+$password="asd123";
+$zonas="x";
+$batallasGanadas=0;
+$batallasPerdidas=0;
+$escuela="Computadores";
+$wifiPotencia="algo";
+$velocidadMedia="123";
+$altitud="321";
+$puntaje=0;
+
+
+
+
+$document = array( "nombreUsuario" => $nombreUsuario , "preguntaRecuperacion" => $preguntaRecuperacion, "respuestaRecuperacion" =>   $respuestaRecuperacion, "password" => $password, "batallasGanadas" => $batallasGanadas, "batallasPerdidas" => $batallasPerdidas, "escuela" => $escuela, "wifiPotencia" => $wifiPotencia, "velocidadMedia" => $velocidadMedia,"altitud" => $altitud,"puntaje" => $puntaje);
+$collection->insert($document);
+
+
+
+?>
+
+
+  </body>
+</html>
