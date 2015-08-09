@@ -1,20 +1,33 @@
 <?php
-require_once ("../connection.php");
+// require_once ("../connection.php");
 // nos conectamos a la base da datos.
-$db = Conexion::GetConexion ();
-// ... acá seguirá algo más de la BD?
 
-$username = $_POST ['username'];
-$pwd = $_POST ['pwd'];
+$connection = new MongoClient();
+$username = $_GET['username'];
+$pwd = $_GET['password'];
 // y demas datos para crear un usuario nuevo.
 
-// query para crear user en DB.
-$query = "";
-$stmt = $db->prepare($query);
-$stmt->execute();
-//cramos una variable que almacenará la respuesta del query
-$result = $stmt->get_result();
+//crear user en DB.
 
-//creamos la variable que almacena la respuesta final
-$response= array();
+ $db = $connection->users;
+ $user_collection = $db->user;
+ 
+//No pueden dos usuarios con el mismo nombre.
+ $cursor = $user_collection->find();
+ $exists = false;
+ foreach ($cursor as $document) {
+ 	if($document['username']== $username){
+ 		$exists = true;
+ 		break;
+ 	}
+ }
+ $response = array();
+ if ($exists == false){
+ 	$doc = array("username" => $username, "password" => $pwd);
+ 	$user_collection->insert($doc);
+ 	$response["success"] = 1;
+ }else{
+ 	$response["success"] = 0;
+ }
+ echo json_encode($response);
 ?>

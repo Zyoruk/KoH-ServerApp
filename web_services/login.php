@@ -1,32 +1,29 @@
 <?php
-require_once("../connection.php");
-//nos conectamos a la base da datos.
-$db = Conexion::GetConexion();
-//... acá seguirá algo más de la BD?
+$connection = new MongoClient ();
+$username = $_GET ['username'];
+$pwd = $_GET ['password'];
+// y demas datos para crear un usuario nuevo.
 
-$username = $_POST ['username'];
-$pwd = $_POST ['pwd'];
+// buscar user en DB.
 
-//Realizar un query para tomar los datos de usuario.
-$query = "";
-$stmt = $db->prepare($query);
-$stmt->execute();
-//cramos una variable que almacenará la respuesta del query la base datos
-$result = $stmt->get_result();
+$db = $connection->users;
+$user_collection = $db->user;
 
-//creamos la variable que almacena la respuesta final
-$response= array();
-
-/* código para almacenar la respuesta donde se tiene que verficar que la 
-respuesta tenga al menos una fila.*/
-// Se tiene que ir almacenando los datos de $result en $response
-if($result){
-	//...
-	echo json_encode($response);
-}else{
-	$response["success"] = 0;
-	$response["message"] = "User not found";
-	echo json_decode($response);
+// No pueden dos usuarios con el mismo nombre.
+$cursor = $user_collection->find ();
+$response = array ();
+foreach ( $cursor as $document ) {
+	if ($document ['username'] == $username && $document ['password'] == $pwd) {
+		
+		$response ['username'] = $document ['username'];
+		$response ['password'] = $document ['password'];
+		$response ['message'] = 1;
+		break;
+	}
 }
+if ($response['username'] == NULL){
+	$response['message'] = 0;
+}
+echo json_encode ( $response );
 
 ?>

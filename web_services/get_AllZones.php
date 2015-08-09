@@ -9,7 +9,7 @@ $query = "";
 $stmt = $db->prepare($query);
 $stmt->execute();
 //cramos una variable que almacenará la respuesta del query
-$result = stmt->get_result();
+$result = $stmt->get_result();
 
 //creamos la variable que almacena la respuesta final
 $response= array();

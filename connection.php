@@ -8,8 +8,8 @@ class Conexion{
 		$host = DBHOST;
 		$database =DBNAME;
 		
-		$con =  $con = new Mongo("mongodb://{$username}:{$password}@{$host}");
-		$db = $con->selectDB($database);
+		$con = new MongoClient("mongodb://{$username}:{$password}@{$host}");
+// 		$db = $con->selectDB($database);
 		return $db;
 	}
 }
