@@ -17,6 +17,7 @@ foreach ( $cursor as $document ) {
 		
 		$response ['username'] = $document ['username'];
 		$response ['password'] = $document ['password'];
+		$response ['school'] = $document ['school'];
 		$response ['message'] = 1;
 		break;
 	}

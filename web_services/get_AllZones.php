@@ -1,27 +1,21 @@
 <?php
-require_once("../connection.php");
-//nos conectamos a la base da datos.
-$db = Conexion::GetConexion();
-//... acá seguirá algo más de la BD?
+$connection = new MongoClient ();
+//buscar user en DB.
 
-//realiza un query para tomar todas las zonas existentes y sus datos.
-$query = "";
-$stmt = $db->prepare($query);
-$stmt->execute();
-//cramos una variable que almacenará la respuesta del query
-$result = $stmt->get_result();
+$db = $connection->zones;
+$zone_collection = $db->zone;
 
-//creamos la variable que almacena la respuesta final
-$response= array();
-/* código para almacenar la respuesta donde se tiene que verficar que la 
-respuesta tenga al menos una fila.*/
-// Se tiene que ir almacenando los datos de $result en $response
-if($result){
-	//...
-	echo json_decode($response);
-}else{
-	$response["success"] = 0;
-	$response["message"] = "No zones found";
-	echo json_decode($response);
+// Tomamos todas las zonas
+$zone = $zone_collection->find ();
+$response = array ();
+foreach ( $zone as $document ) {
+	$response['zone_id'] = $document['zone_id'];
+	$response['zone_coords'] = $document['zone_coords'];
+	$response['zone_owner'] = $document['zone_owner'];
+	$response['zone_fight_alert'] = $document['zone_fight_alert'];
 }
+if ($response['zone_id'] == NULL){
+	$response['message'] = 0;
+}
+echo json_encode ( $response );
 ?>

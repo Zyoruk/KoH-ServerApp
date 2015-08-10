@@ -5,6 +5,7 @@
 $connection = new MongoClient();
 $username = $_GET['username'];
 $pwd = $_GET['password'];
+$school = $_GET['school'];
 // y demas datos para crear un usuario nuevo.
 
 //crear user en DB.
@@ -23,7 +24,7 @@ $pwd = $_GET['password'];
  }
  $response = array();
  if ($exists == false){
- 	$doc = array("username" => $username, "password" => $pwd);
+ 	$doc = array("username" => $username, "password" => $pwd, "school"=>$school);
  	$user_collection->insert($doc);
  	$response["success"] = 1;
  }else{
