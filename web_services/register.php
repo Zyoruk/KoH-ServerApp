@@ -3,9 +3,9 @@
 // nos conectamos a la base da datos.
 
 $connection = new MongoClient();
-$username = $_GET['username'];
-$pwd = $_GET['password'];
-$school = $_GET['school'];
+$username = $_GET['un'];
+$pwd = $_GET['pwd'];
+$school = $_GET['sch'];
 // y demas datos para crear un usuario nuevo.
 
 //crear user en DB.

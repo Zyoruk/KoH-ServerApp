@@ -1,7 +1,7 @@
 <?php
 $connection = new MongoClient ();
-$username = $_GET ['username'];
-$pwd = $_GET ['password'];
+$username = $_GET ['un'];
+$pwd = $_GET ['pwd'];
 // y demas datos para crear un usuario nuevo.
 
 // buscar user en DB.
