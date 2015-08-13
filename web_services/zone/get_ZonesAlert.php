@@ -24,6 +24,9 @@ if(isset($_GET['sch'])){
 			$i++;
 		}
 	}
+	$response['message']=1;
 }else{
 	$response['message']= 0;
 }
+echo json_encode($response);
+?>

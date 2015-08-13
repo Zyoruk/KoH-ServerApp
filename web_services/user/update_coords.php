@@ -22,7 +22,7 @@ if (isset ( $_GET ['un'] ) && isset ( $_GET ['x'] ) && isset ( $_GET ['y'] )) {
 
 		// una vez actualizado, verificar si no esta en zona enemiga.
 		$db_2 = $connection->zones;
-		$zone_collection = $db->zone;
+		$zone_collection = $db_2->zone;
 		// Buscamos la zona que cumpla con las coordenadas y le cambiamos la bandera a Fight si es necesario.
 		$zone = $zone_collection->find ();
 		
@@ -36,7 +36,7 @@ if (isset ( $_GET ['un'] ) && isset ( $_GET ['x'] ) && isset ( $_GET ['y'] )) {
 								break;
 							}
 							if ($document ['zone_owner'] == 'neutral') {
-								$zone->update ( array (
+								$zone_collection->update ( array (
 										'zone_id' => $document ['zone_id']
 								), array (
 										'$set' => array (
@@ -47,14 +47,14 @@ if (isset ( $_GET ['un'] ) && isset ( $_GET ['x'] ) && isset ( $_GET ['y'] )) {
 								$response['message']=1;
 								break;
 							} else {
-								$zone->update ( array (
+								$zone_collection->update ( array (
 										'zone_id' => $document ['zone_id']
 								), array (
 										'$set' => array (
-												'zone_fght_alert' => 'fight'
+												'zone_fight_alert' => 'fight'
 										)
 								) );
-								$user->update ( array (
+								$user_collection->update ( array (
 										'username' => $_GET ['un']
 								), array (
 										'$set' => array (

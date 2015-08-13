@@ -21,8 +21,10 @@ foreach ( $zone as $document ) {
 	$response[$i] = $to_add;
 	$i++;
 }
-if ($response ['zone_id'] == NULL) {
-	$response ['message'] = 0;
+if($response[0] == NULL){
+	$response['message']=0;
+}else{
+	$response['message']=1;
 }
 echo json_encode ( $response );
 ?>

@@ -1,5 +1,4 @@
 <?php
-// require_once ("../connection.php");
 // nos conectamos a la base da datos.
 $response = array ();
 if (isset ( $_GET ['pwd'] ) && isset ( $_GET ['un'] ) && isset ( $_GET ['sch'] ) && isset ( $_GET ['x'] )&& isset ( $_GET ['y'] )) {
@@ -20,6 +19,15 @@ if (isset ( $_GET ['pwd'] ) && isset ( $_GET ['un'] ) && isset ( $_GET ['sch'] )
 			break;
 		}
 	}
+	
+	//buscamos que la escuela exista (utilizaremos la misma variable $exists solo para reciclar.)
+	$db = $connection->schools;
+	$school_collection = $db->school;
+	$school = $school_collection->findOne(array('sch_name'=>$_GET['sch']));
+	if($school['sch_name']==NULL){
+		$exists=true;
+	}
+	
 	if ($exists == false) {
 		$doc = array (
 				"username" => $_GET ['un'],
