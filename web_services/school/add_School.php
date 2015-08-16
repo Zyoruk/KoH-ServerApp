@@ -16,14 +16,15 @@ if (isset ( $_GET ['sch'] ) && isset($_GET['color'])) {
 				'sch_color' => $_GET ['color']
 		) );
 		if ($school['sch_color'] == NULL){
-			$response ['message'] = 0;
-		}else{
-			$document = array (
+						$document = array (
 					'sch_name' => $_GET ['sch'],
 					'sch_color' => $_GET['color']
 			);
 			$school_collection->insert ( $document );
 			$response ['message'] = 1;
+		}else{
+			$response ['message'] = 0;
+			
 		}
 	} else {
 		$response ['message'] = 0;

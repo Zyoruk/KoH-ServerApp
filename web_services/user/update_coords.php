@@ -23,7 +23,7 @@ if (isset ( $_GET ['un'] ) && isset ( $_GET ['x'] ) && isset ( $_GET ['y'] )) {
 				"username" => $_GET ['un']
 		) );
 		// una vez actualizado, verificar si no esta en zona enemiga.
-		$db_2 = $connection->zones;
+		$db_2 = $connection->koh;
 		$zone_collection = $db_2->zone;
 		// Buscamos la zona que cumpla con las coordenadas y le cambiamos la bandera a Fight si es necesario.
 		$zone = $zone_collection->find ();
