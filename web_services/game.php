@@ -19,7 +19,6 @@ if (isset ( $_GET ['tps'] ) && isset ( $_GET ['un'] )) {
 	foreach ( $user as $document ) {
 		if ($document ['taps'] > 0 && $document ['username'] != $_GET ['un']) {
 			if ($_GET ['tps'] > $document ['taps']) {
-				echo 'aca';
 				$response ['winner'] = $updated ['username'];
 				$db = $connection->koh;
 				$zone_collection = $db->zone;
