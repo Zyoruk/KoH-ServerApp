@@ -3,7 +3,7 @@
 
 // Conexión con mongo
 $connection = new MongoClient ();
-$db = $connection->users;
+$db = $connection->koh;
 $user_collection = $db->user;
 
 // Tomar todos los usuarios

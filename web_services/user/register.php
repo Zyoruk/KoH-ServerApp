@@ -3,32 +3,15 @@
 $response = array ();
 if (isset ( $_GET ['pwd'] ) && isset ( $_GET ['un'] ) && isset ( $_GET ['sch'] ) && isset ( $_GET ['x'] )&& isset ( $_GET ['y'] )) {
 	$connection = new MongoClient ();
-	// y demas datos para crear un usuario nuevo.
-	
-	// crear user en DB.
-	
-	$db = $connection->users;
+	$db = $connection->koh;
 	$user_collection = $db->user;
 	
-	// No pueden dos usuarios con el mismo nombre.
-	$cursor = $user_collection->find ();
-	$exists = false;
-	foreach ( $cursor as $document ) {
-		if ($document ['username'] == $_GET ['un']) {
-			$exists = true;
-			break;
-		}
-	}
+	$user = $user_collection->findOne (array('username'=>$_GET['un']));
 	
-	//buscamos que la escuela exista (utilizaremos la misma variable $exists solo para reciclar.)
 	$db = $connection->schools;
 	$school_collection = $db->school;
 	$school = $school_collection->findOne(array('sch_name'=>$_GET['sch']));
-	if($school['sch_name']==NULL){
-		$exists=true;
-	}
-	
-	if ($exists == false) {
+	if ($user['username'] == NULL && $school['sch_name']!=NULL) {
 		$doc = array (
 				"username" => $_GET ['un'],
 				"password" => $_GET ['pwd'],

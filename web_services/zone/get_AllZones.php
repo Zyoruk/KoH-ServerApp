@@ -2,7 +2,7 @@
 $connection = new MongoClient ();
 // buscar user en DB.
 
-$db = $connection->zones;
+$db = $connection->koh;
 $zone_collection = $db->zone;
 
 // Tomamos todas las zonas

@@ -5,7 +5,7 @@ $response = array ();
 if (isset ( $_GET ['zid'] ) && isset ( $_GET ['x1'] ) && isset ( $_GET ['x2'] ) && isset ( $_GET ['y1'] ) && isset ( $_GET ['y2'] )) {
 	$connection = new MongoClient ();
 	// Verificar que no exista otra zona con el mismo nombre.
-	$db = $connection->zones;
+	$db = $connection->koh;
 	$zone_collection = $db->zone;
 	// Tomamos todas las zonas
 	$zone = $zone_collection->find ();
@@ -17,6 +17,7 @@ if (isset ( $_GET ['zid'] ) && isset ( $_GET ['x1'] ) && isset ( $_GET ['x2'] ) 
 			break;
 		} else if ($_GET ['x1'] >= $document ['zone_X1'] && $_GET ['x2'] <= $document ['zone_X2'] && $_GET ['y1'] >= $document ['zone_Y1'] && $_GET ['y2'] >= $document ['zone_Y2']) {
 			$fits = false;
+			break;
 		}
 	}
 	if ($exists == false && $fits == true) {

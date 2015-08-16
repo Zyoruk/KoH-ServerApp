@@ -4,19 +4,12 @@ $response = array ();
 if (isset ( $_GET ['pwd'] ) && isset ( $_GET ['un'] )) {
 	$connection = new MongoClient ();
 	
-	$db = $connection->admins;
+	$db = $connection->koh;
 	$admin_collection = $db->admin;
 	
 	// No pueden haber dos admins con el mismo nombre.
-	$admin = $admin_collection->find ();
-	$exists = false;
-	foreach ( $admin as $document ) {
-		if ($document ['username'] == $_GET ['un']) {
-			$exists = true;
-			break;
-		}
-	}
-	if ($exists == false) {
+	$admin = $admin_collection->findOne (array('username'=>$_GET['un']));
+	if ($admin['username']==NULL) {
 		$doc = array (
 				"username" => $_GET ['un'],
 				"password" => $_GET ['pwd'] 

@@ -3,7 +3,7 @@ $response = array ();
 if (isset ( $_GET ['un'] ) && isset ( $_GET ['pwd'] )) {
 	$connection = new MongoClient ();
 	// buscar user en DB.
-	$db = $connection->admins;
+	$db = $connection->koh;
 	$admin_collection = $db->admin;
 	$admin = $admin_collection->findOne ( array (
 			'username' => $_GET ['un'],

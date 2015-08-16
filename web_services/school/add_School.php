@@ -1,22 +1,30 @@
 <?php
 // Agregar una NUEVA escuela.
 $response = array ();
-if (isset ( $_GET ['sch'] )) {
+if (isset ( $_GET ['sch'] ) && isset($_GET['color'])) {
 	
 	$connection = new MongoClient ();
 	// buscar user en DB.
-	$db = $connection->schools;
+	$db = $connection->koh;
 	$school_collection = $db->school;
 	$school = $school_collection->findOne ( array (
 			'sch_name' => $_GET ['sch'] 
 	) );
 	
 	if ($school ['sch_name'] == NULL) {
-		$document = array (
-				'sch_name' => $_GET ['sch'] 
-		);
-		$school_collection->insert ( $document );
-		$response ['message'] = 1;
+		$school = $school_collection->findOne ( array (
+				'sch_color' => $_GET ['color']
+		) );
+		if ($school['sch_color'] == NULL){
+			$response ['message'] = 0;
+		}else{
+			$document = array (
+					'sch_name' => $_GET ['sch'],
+					'sch_color' => $_GET['color']
+			);
+			$school_collection->insert ( $document );
+			$response ['message'] = 1;
+		}
 	} else {
 		$response ['message'] = 0;
 	}

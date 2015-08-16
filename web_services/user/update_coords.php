@@ -4,7 +4,7 @@
 $response = array ();
 if (isset ( $_GET ['un'] ) && isset ( $_GET ['x'] ) && isset ( $_GET ['y'] )) {
 	$connection = new MongoClient ();
-	$db = $connection->users;
+	$db = $connection->koh;
 	$user_collection = $db->user;
 	// Buscamos a un usuario
 	$user = $user_collection->findOne ( array (
@@ -19,7 +19,9 @@ if (isset ( $_GET ['un'] ) && isset ( $_GET ['x'] ) && isset ( $_GET ['y'] )) {
 						"y" => $_GET ['y'] 
 				) 
 		) );
-
+		$user = $user_collection->findOne ( array (
+				"username" => $_GET ['un']
+		) );
 		// una vez actualizado, verificar si no esta en zona enemiga.
 		$db_2 = $connection->zones;
 		$zone_collection = $db_2->zone;
