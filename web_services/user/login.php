@@ -19,7 +19,8 @@ if (isset ( $_GET ['pwd'] ) && isset ( $_GET ['un'] )) {
 			$response ['school'] = $document ['school'];
 			$response ['x'] = $document ['x'];
 			$response ['y'] = $document ['y'];
-			$response['alert']=$document['alert'];
+			$response ['alert'] = $document ['alert'];
+			$response ['taps'] = $document ['taps'];
 			$response ['message'] = 1;
 			break;
 		}

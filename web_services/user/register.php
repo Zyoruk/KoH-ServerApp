@@ -35,7 +35,8 @@ if (isset ( $_GET ['pwd'] ) && isset ( $_GET ['un'] ) && isset ( $_GET ['sch'] )
 				"school" => $_GET ['sch'],
 				"x"=> $_GET['x'],
 				"y"=> $_GET['y'],
-				"alert"=>'safe'
+				"alert"=>'safe',
+				'taps'=> 0
 		);
 		$user_collection->insert ( $doc );
 		$response ["message"] = 1;

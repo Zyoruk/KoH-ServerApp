@@ -25,16 +25,11 @@ if (isset ( $_GET ['un'] ) && isset ( $_GET ['x'] ) && isset ( $_GET ['y'] )) {
 		$zone_collection = $db_2->zone;
 		// Buscamos la zona que cumpla con las coordenadas y le cambiamos la bandera a Fight si es necesario.
 		$zone = $zone_collection->find ();
-		
+		$i=0;
 		foreach ( $zone as $document ) {
 			if ($document ['zone_owner'] != $user ['school']) {
 				if ($document ['zone_X1'] < $user ['x'] && $document ['zone_X2'] > $user ['x'] &&
 						$document ['zone_Y1'] < $user ['y'] && $document ['zone_Y2'] > $user ['y']) {
-							if($document['zone_owner']==$user['school']){
-								$response['status']='safe';
-								$response['message']=1;
-								break;
-							}
 							if ($document ['zone_owner'] == 'neutral') {
 								$zone_collection->update ( array (
 										'zone_id' => $document ['zone_id']
@@ -45,7 +40,6 @@ if (isset ( $_GET ['un'] ) && isset ( $_GET ['x'] ) && isset ( $_GET ['y'] )) {
 								) );
 								$response['status']='safe';
 								$response['message']=1;
-								break;
 							} else {
 								$zone_collection->update ( array (
 										'zone_id' => $document ['zone_id']
@@ -63,11 +57,27 @@ if (isset ( $_GET ['un'] ) && isset ( $_GET ['x'] ) && isset ( $_GET ['y'] )) {
 								) );
 								$response['status']='fight';
 								$response['message']=1;
-								break;
 							}
 						}
+			}else{
+					if ($document ['zone_fight_alert'] == 'fight'){
+						$to_add = array();
+						$to_add ['zone_id'] = $document ['zone_id'];
+						$to_add ['zone_owner'] = $document ['zone_owner'];
+						$to_add ['zone_X1'] = $document ['zone_X1'];
+						$to_add ['zone_X2'] = $document ['zone_X2'];
+						$to_add ['zone_Y1'] = $document ['zone_Y1'];
+						$to_add ['zone_Y2'] = $document ['zone_Y2'];
+						$to_add ['zone_fight_alert'] = $document ['zone_fight_alert'];
+						$response[$i] = $to_add;
+						$i++;
+					}
+					$response['status']='safe';
+					$response['message']=1;
 			}
 		}
+		
+		
 		if ($response['status'] == NULL){
 			//Esto quiere decir que estaba fuera de zona de juego.
 			$response['message']=0;
